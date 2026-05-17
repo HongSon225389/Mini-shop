@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import User from "./src/models/User.js";
 
-// Load biến môi trường (chứa link MongoDB)
+// Load biến môi trường
 dotenv.config();
 
 const createAdmin = async () => {

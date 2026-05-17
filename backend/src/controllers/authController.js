@@ -3,16 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 
-// Hàm bổ trợ tạo Token đã tạo ở utils
-// const generateToken = (id) => {
-//   return jwt.sign({ id }, process.env.JWT_SECRET, {
-//     expiresIn: "30d", // Token có hạn trong 30 ngày
-//   });
-// };
-
-// @desc    Đăng ký người dùng mới
-// @route   POST /api/auth/register
-// @access  Public
 const registerUser = async (req, res) => {
   try {
     const { name, email, password, phone, address } = req.body;
