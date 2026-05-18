@@ -40,7 +40,7 @@ Dự án được chia thành 2 phân hệ hoạt động độc lập: `fronten
 ### Bước 1: Clone mã nguồn về máy
 
 ```bash
-git clone [[https://github.com/TenCuaBan/mini-shopee.git](https://github.com/TenCuaBan/mini-shopee.git)](https://github.com/HongSon225389/Mini-shop)
+git clone https://github.com/HongSon225389/Mini-shop
 cd mini-shopee
 Bước 2: Thiết lập Backend (API Server)
 Mở Terminal mới và di chuyển vào thư mục backend:
