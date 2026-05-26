@@ -29,6 +29,7 @@ const ProductManagement = () => {
   const [formData, setFormData] = useState({
     name: "",
     price: 0,
+    originalPrice: 0,
     image: "",
     brand: "",
     category: "",
@@ -88,6 +89,7 @@ const ProductManagement = () => {
     setFormData({
       name: product.name,
       price: product.price,
+      originalPrice: product.originalPrice || 0,
       image: product.image,
       brand: product.brand,
       category: product.category,
@@ -110,6 +112,12 @@ const ProductManagement = () => {
     }
     if (!formData.image) {
       return alert("Vui lòng tải ảnh lên hoặc nhập URL ảnh");
+    }
+    if (
+      Number(formData.originalPrice) > 0 &&
+      Number(formData.price) >= Number(formData.originalPrice)
+    ) {
+      return alert("Giá khuyến mãi phải RẺ HƠN giá gốc nhé!");
     }
     try {
       if (editMode) {
@@ -347,10 +355,10 @@ const ProductManagement = () => {
                   />
                 </div>
 
-                {/* Giá bán */}
+                {/* Giá bán (Giá thực tế thu của khách) */}
                 <div>
-                  <label className="block text-[11px] font-black uppercase text-gray-400 mb-1 ml-1">
-                    Giá bán (VNĐ)
+                  <label className="block text-[11px] font-black uppercase text-red-500 mb-1 ml-1">
+                    Giá khuyến mãi (VNĐ) *
                   </label>
                   <input
                     type="number"
@@ -359,7 +367,23 @@ const ProductManagement = () => {
                     required
                     value={formData.price}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-100 outline-none font-bold text-blue-600"
+                    className="w-full px-4 py-3 bg-red-50 border border-red-200 rounded-xl focus:ring-2 focus:ring-red-100 outline-none font-bold text-red-600"
+                  />
+                </div>
+
+                {/* Giá gốc (Dùng để gạch ngang và tính % giảm giá) */}
+                <div>
+                  <label className="block text-[11px] font-black uppercase text-gray-400 mb-1 ml-1">
+                    Giá gốc (Tùy chọn)
+                  </label>
+                  <input
+                    type="number"
+                    name="originalPrice"
+                    min="0"
+                    value={formData.originalPrice}
+                    onChange={handleInputChange}
+                    placeholder="Nhập giá gốc..."
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-100 outline-none font-bold text-gray-500"
                   />
                 </div>
 

@@ -158,8 +158,16 @@ exports.getProductById = async (req, res) => {
 // @access  Private/Admin
 exports.createProduct = async (req, res) => {
   try {
-    const { name, description, price, image, category, countInStock, brand } =
-      req.body;
+    const {
+      name,
+      description,
+      price,
+      originalPrice,
+      image,
+      category,
+      countInStock,
+      brand,
+    } = req.body;
 
     // 1. Kiểm tra các trường bắt buộc không được để trống
     if (!name || !description || !price || !image || !category) {
@@ -186,6 +194,7 @@ exports.createProduct = async (req, res) => {
       name,
       description,
       price,
+      originalPrice: originalPrice || 0,
       image,
       category,
       countInStock: countInStock || 0,
@@ -224,8 +233,15 @@ exports.createProduct = async (req, res) => {
 // @access  Private/Admin
 exports.updateProduct = async (req, res) => {
   try {
-    const { name, description, price, image, category, countInStock } =
-      req.body;
+    const {
+      name,
+      description,
+      price,
+      originalPrice,
+      image,
+      category,
+      countInStock,
+    } = req.body;
 
     const product = await Product.findById(req.params.id);
 
@@ -233,6 +249,7 @@ exports.updateProduct = async (req, res) => {
       product.name = name || product.name;
       product.description = description || product.description;
       product.price = price || product.price;
+      product.originalPrice = originalPrice || 0;
       product.image = image || product.image;
       product.category = category || product.category;
       product.countInStock = countInStock || product.countInStock;

@@ -18,15 +18,14 @@ import ProductManagement from "./pages/admin/ProductManagement";
 import OrderManagement from "./pages/admin/OrderManagement";
 import PlaceOrder from "./pages/PlaceOrder";
 import OrderDetail from "./pages/OrderDetail";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50 flex flex-col">
-        {/* Navbar sẽ luôn hiển thị ở trên cùng ở mọi trang */}
+        <ScrollToTop />
         <Navbar />
-
-        {/* Phần nội dung chính sẽ thay đổi tùy theo URL */}
         <main className="flex-grow max-w-7xl w-full mx-auto py-8 px-4 sm:px-6 lg:px-8">
           <Routes>
             {/* Các Route công khai (Ai cũng vào được) */}

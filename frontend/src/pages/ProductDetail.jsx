@@ -1,4 +1,3 @@
-// frontend/src/pages/ProductDetail.jsx
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/cartSlice";
 import React, { useState, useEffect } from "react";
@@ -35,6 +34,7 @@ const ProductDetail = () => {
   const [reviewError, setReviewError] = useState("");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchProductDetails = async () => {
       try {
         setLoading(true);

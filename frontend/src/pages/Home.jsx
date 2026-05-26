@@ -10,12 +10,12 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   const quickCategories = [
-    { name: "Điện thoại", icon: "📱", slug: "Điện thoại" },
+    { name: "Điện thoại", icon: "📱", slug: "Smartphone" },
     { name: "Laptop", icon: "💻", slug: "Laptop" },
-    { name: "Bàn phím", icon: "⌨️", slug: "Bàn phím" },
-    { name: "Chuột Gaming", icon: "🖱️", slug: "Chuột Gaming" },
-    { name: "Đồng hồ", icon: "⌚", slug: "Đồng hồ" },
-    { name: "Tai nghe", icon: "🎧", slug: "Tai nghe" },
+    { name: "Bàn phím", icon: "⌨️", slug: "Keyboard" },
+    { name: "Chuột Gaming", icon: "🖱️", slug: "Mouse" },
+    { name: "Màn hình", icon: "🖥️", slug: "Monitor" },
+    { name: "Tai nghe", icon: "🎧", slug: "Audio" },
   ];
   useEffect(() => {
     const fetchProducts = async () => {
@@ -86,9 +86,6 @@ const Home = () => {
 
           {/* Cột hình ảnh bên phải (ẩn trên mobile để đỡ chật) */}
           <div className="hidden md:flex flex-1 justify-end items-center pr-8">
-            {/* Tạm thời mình để một khối kính mờ. 
-        Sau này bạn có thể thay khối <div> này bằng thẻ <img> chứa hình 1 chiếc iPhone PNG tách nền 
-      */}
             <div className="w-56 h-56 bg-gradient-to-tr from-white/20 to-white/5 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 shadow-2xl animate-[bounce_4s_ease-in-out_infinite]">
               <span className="text-white/80 font-bold text-center text-sm px-4">
                 <img src="/public/baner.png" alt="Banner" />
@@ -97,7 +94,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* --- LỐI TẮT DANH MỤC (QUICK CATEGORIES)  */}
+      {/* --- LỐI TẮT DANH MỤC  */}
       <div className="my-10">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-black text-gray-800 tracking-tight flex items-center">
@@ -130,13 +127,16 @@ const Home = () => {
       <div className="max-w-7xl mx-auto px-4 space-y-16">
         {/* SECTION 1: SẢN PHẨM MỚI NHẤT */}
         <section>
-          <div className="flex justify-between items-end mb-6 border-b border-gray-200 pb-3">
-            <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-              <Zap className="mr-2 text-blue-600" size={28} /> Sản phẩm mới nhất
+          <div className="relative flex items-center justify-center mb-10 mt-16">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-800 uppercase tracking-tight flex items-center">
+              <Zap className="mr-3 text-blue-600" size={32} />
+              Sản phẩm mới nhất
             </h2>
+
+            {/* Nút Xem tất cả được ghim tuyệt đối sang bên phải (ẩn trên mobile để đỡ chật) */}
             <Link
               to="/shop"
-              className="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center"
+              className="absolute right-0 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors hidden md:flex items-center"
             >
               Xem tất cả <ArrowRight size={16} className="ml-1" />
             </Link>
@@ -150,14 +150,16 @@ const Home = () => {
 
         {/* SECTION 2: SẢN PHẨM BÁN CHẠY */}
         <section>
-          <div className="flex justify-between items-end mb-6 border-b border-gray-200 pb-3">
-            <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-              <Flame className="mr-2 text-red-500" size={28} /> Sản phẩm bán
-              chạy
+          <div className="relative flex items-center justify-center mb-10 mt-16">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-800 uppercase tracking-tight flex items-center">
+              <Flame className="mr-3 text-red-500 fill-red-500" size={32} />
+              Sản phẩm bán chạy
             </h2>
+
+            {/* Nút Xem tất cả */}
             <Link
-              to="/shop"
-              className="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center"
+              to="/shop?sort=bestseller"
+              className="absolute right-0 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors hidden md:flex items-center"
             >
               Xem tất cả <ArrowRight size={16} className="ml-1" />
             </Link>
@@ -171,13 +173,15 @@ const Home = () => {
 
         {/* SECTION 3: SẢN PHẨM NỔI BẬT (GIÁ TRỊ CAO) */}
         <section>
-          <div className="flex justify-between items-end mb-6 border-b border-gray-200 pb-3">
-            <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-              <Gem className="mr-2 text-amber-500" size={28} /> Sản phẩm nổi bật
+          <div className="relative flex items-center justify-center mb-10 mt-16">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-800 uppercase tracking-tight flex items-center">
+              <Gem className="mr-3 text-yellow-500" size={32} />
+              Sản phẩm nổi bật
             </h2>
+
             <Link
-              to="/shop"
-              className="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center"
+              to="/shop?sort=popular"
+              className="absolute right-0 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors hidden md:flex items-center"
             >
               Xem tất cả <ArrowRight size={16} className="ml-1" />
             </Link>
