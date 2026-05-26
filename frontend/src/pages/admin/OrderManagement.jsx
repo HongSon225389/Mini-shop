@@ -1,4 +1,3 @@
-// frontend/src/pages/admin/OrderManagement.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -12,9 +11,8 @@ const OrderManagement = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // STATE TÌM KIẾM VÀ LỌC TRẠNG THÁI
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState("All"); // Mặc định là Tất cả
+  const [filterStatus, setFilterStatus] = useState("All");
 
   useEffect(() => {
     if (!userInfo || userInfo.role !== "admin") {
@@ -57,9 +55,7 @@ const OrderManagement = () => {
     }
   };
 
-  // LOGIC LỌC KẾP HỢP: TỪ KHÓA + TRẠNG THÁI
   const filteredOrders = orders.filter((order) => {
-    // Lọc theo từ khóa
     const term = searchTerm.toLowerCase();
     const matchSearch =
       order._id.toLowerCase().includes(term) ||

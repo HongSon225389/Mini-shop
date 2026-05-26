@@ -1,5 +1,4 @@
-// frontend/src/pages/Cart.jsx
-import React, { useEffect } from "react"; // <-- ĐÃ THÊM useEffect Ở ĐÂY
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../store/cartSlice";
@@ -11,7 +10,7 @@ const Cart = () => {
 
   // Lấy danh sách sản phẩm trong giỏ và thông tin user từ Redux Store
   const { cartItems } = useSelector((state) => state.cart);
-  const { userInfo } = useSelector((state) => state.auth); // <-- ĐÃ THÊM userInfo Ở ĐÂY
+  const { userInfo } = useSelector((state) => state.auth);
 
   // Chặn Admin truy cập giỏ hàng
   useEffect(() => {

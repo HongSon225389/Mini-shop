@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Schema phụ cho các lượt đánh giá (reviews)
 const reviewSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

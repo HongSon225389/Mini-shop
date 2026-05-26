@@ -3,15 +3,12 @@ import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import User from "./src/models/User.js";
 
-// Load biến môi trường
 dotenv.config();
 
 const createAdmin = async () => {
   try {
-    // Kết nối Database
     await mongoose.connect(process.env.MONGO_URI);
 
-    // Kiểm tra xem đã có admin chưa
     const adminExists = await User.findOne({ email: "admin@shop.com" });
 
     if (adminExists) {
@@ -19,9 +16,8 @@ const createAdmin = async () => {
       process.exit();
     }
 
-    // Mã hóa mật khẩu
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash("123456", salt); // Mật khẩu mặc định là 123456
+    const hashedPassword = await bcrypt.hash("123456", salt);
 
     // Tạo tài khoản Admin
     const adminUser = new User({
@@ -30,7 +26,7 @@ const createAdmin = async () => {
       password: hashedPassword,
       phone: "0999999999",
       address: "Trụ sở chính Shop",
-      role: "admin", // Cố định role là admin
+      role: "admin",
     });
 
     await adminUser.save();

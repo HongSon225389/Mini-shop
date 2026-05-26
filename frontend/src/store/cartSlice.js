@@ -1,7 +1,6 @@
-// frontend/src/store/cartSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
-// Khởi tạo giỏ hàng từ localStorage (nếu có) để không bị mất khi F5
+// Khởi tạo giỏ hàng từ localStorage (nếu có) để không bị mất
 const initialState = {
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))

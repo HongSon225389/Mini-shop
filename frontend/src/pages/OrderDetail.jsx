@@ -1,4 +1,3 @@
-// frontend/src/pages/OrderDetail.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";

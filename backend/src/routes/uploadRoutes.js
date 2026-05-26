@@ -10,7 +10,6 @@ const storage = multer.diskStorage({
     cb(null, "uploads/"); // Ảnh sẽ được lưu vào thư mục backend/uploads/
   },
   filename(req, file, cb) {
-    // Đặt tên file = tên-gốc-thời-gian.đuôi-file để không bao giờ bị trùng tên
     cb(
       null,
       `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`,
@@ -42,10 +41,8 @@ const upload = multer({
 router.post("/", protect, admin, (req, res) => {
   upload.single("image")(req, res, function (err) {
     if (err instanceof multer.MulterError) {
-      // Lỗi của chính Multer
       return res.status(400).json({ message: "Lỗi Multer: " + err.message });
     } else if (err) {
-      // Lỗi do mình định nghĩa trong checkFileType
       return res.status(400).json({ message: err.message });
     }
 

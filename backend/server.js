@@ -4,8 +4,6 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./src/config/db");
-
-// Import các file Routes
 const authRoutes = require("./src/routes/authRoutes");
 const categoryRoutes = require("./src/routes/categoryRoutes");
 const productRoutes = require("./src/routes/productRoutes");
@@ -44,7 +42,6 @@ app.get("/", (req, res) => {
   res.send("API Backend Shop Mini Đang Chạy Mượt Mà...");
 });
 
-// --- KHỞI ĐỘNG SERVER ---
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

@@ -1,4 +1,3 @@
-// frontend/src/pages/admin/Dashboard.jsx
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
@@ -11,7 +10,7 @@ import {
   ArrowRight,
   PieChart,
   Activity,
-  BarChart3, // Thêm icon biểu đồ
+  BarChart3,
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -109,7 +108,6 @@ const Dashboard = () => {
         Thống kê doanh thu
       </h1>
 
-      {/* 4 THẺ TỔNG QUAN GIỮ NGUYÊN */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md transition-shadow">
           <div>
@@ -167,7 +165,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* BIỂU ĐỒ DOANH THU 6 THÁNG - MỚI THÊM */}
+      {/* BIỂU ĐỒ DOANH THU 6 THÁNG */}
       <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-10">
         <h2 className="text-xl font-bold text-gray-800 mb-8 flex items-center">
           <BarChart3 className="mr-2 text-green-600" size={24} /> Biểu đồ Doanh
@@ -201,7 +199,6 @@ const Dashboard = () => {
                     ></div>
                   </div>
 
-                  {/* Nhãn tháng dưới đáy */}
                   <span className="text-sm font-semibold text-gray-500 mt-4">
                     {item.monthLabel}
                   </span>
@@ -296,7 +293,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Box Thống kê sản phẩm (Có cuộn chuột) */}
+        {/* Box Thống kê sản phẩm  */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
           <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center shrink-0">
             <PieChart className="mr-2 text-pink-600" size={24} /> Cơ cấu Danh

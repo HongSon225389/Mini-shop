@@ -1,4 +1,3 @@
-// frontend/src/store/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

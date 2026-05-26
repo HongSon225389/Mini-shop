@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Schema phụ cho từng sản phẩm trong giỏ
 const cartItemSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,

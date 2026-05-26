@@ -105,11 +105,9 @@ exports.updateCartQuantity = async (req, res) => {
         .json({ message: "Sản phẩm không tồn tại hoặc đã ngừng kinh doanh" });
     }
     if (quantity > product.countInStock) {
-      return res
-        .status(400)
-        .json({
-          message: `Xin lỗi, sản phẩm này chỉ còn ${product.countInStock} cái trong kho`,
-        });
+      return res.status(400).json({
+        message: `Xin lỗi, sản phẩm này chỉ còn ${product.countInStock} cái trong kho`,
+      });
     }
 
     // 3. Tìm giỏ hàng của user

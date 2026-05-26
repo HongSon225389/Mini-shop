@@ -1,7 +1,6 @@
-// frontend/src/components/Footer.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Globe, Share2 } from "lucide-react"; // Đã gỡ Facebook, Instagram, Twitter
+import { Mail, Phone, MapPin, Globe, Share2 } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -21,7 +20,6 @@ const Footer = () => {
               thiết bị điện tử chính hãng với giá cả cạnh tranh nhất thị trường.
             </p>
             <div className="flex space-x-4">
-              {/* Đã thay thế bằng các Icon tiêu chuẩn không bao giờ bị lỗi */}
               <a
                 href="#"
                 className="text-gray-400 hover:text-blue-600 transition-colors"
@@ -147,7 +145,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Dòng Copyright dưới cùng */}
       <div className="border-t border-gray-100 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm text-center md:text-left mb-4 md:mb-0 font-medium">

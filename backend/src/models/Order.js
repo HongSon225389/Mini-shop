@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Schema phụ lưu thông tin sản phẩm tại thời điểm chốt đơn
 const orderItemSchema = new mongoose.Schema({
   name: { type: String, required: true },
   quantity: { type: Number, required: true },
@@ -19,7 +18,7 @@ const orderSchema = new mongoose.Schema(
     orderItems: [orderItemSchema],
 
     shippingAddress: { type: String, required: true },
-    phone: { type: String, required: true }, // SĐT cố định lấy từ User profile
+    phone: { type: String, required: true },
 
     totalPrice: { type: Number, required: true, default: 0.0 },
 

@@ -40,7 +40,6 @@ const protect = async (req, res, next) => {
 };
 
 // 2. Middleware kiểm tra quyền Admin (Phân quyền - Authorization)
-// (Lưu ý: Middleware này LUÔN PHẢI ĐẶT SAU middleware `protect` ở trên)
 const admin = (req, res, next) => {
   // Kiểm tra xem req.user đã được gán từ hàm protect chưa và role có phải admin không
   if (req.user && req.user.role === "admin") {
