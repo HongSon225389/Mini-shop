@@ -27,8 +27,16 @@ exports.getProducts = async (req, res) => {
       if (req.query.maxPrice)
         priceFilter.price.$lte = Number(req.query.maxPrice);
     }
+    const categoryFilter = req.query.category
+      ? { category: req.query.category }
+      : {};
 
-    const filter = { ...keyword, ...priceFilter, isActive: true };
+    const filter = {
+      ...keyword,
+      ...priceFilter,
+      ...categoryFilter,
+      isActive: true,
+    };
 
     // 3. Logic Sắp Xếp
     let sortQuery = { createdAt: -1 }; // Mặc định mới nhất

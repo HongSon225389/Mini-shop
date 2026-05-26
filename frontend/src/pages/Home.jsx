@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import ProductCard from "../components/ProductCard";
 import { Zap, Gem, Flame, ArrowRight } from "lucide-react";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const quickCategories = [
+    { name: "Điện thoại", icon: "📱", slug: "Điện thoại" },
+    { name: "Laptop", icon: "💻", slug: "Laptop" },
+    { name: "Bàn phím", icon: "⌨️", slug: "Bàn phím" },
+    { name: "Chuột Gaming", icon: "🖱️", slug: "Chuột Gaming" },
+    { name: "Đồng hồ", icon: "⌚", slug: "Đồng hồ" },
+    { name: "Tai nghe", icon: "🎧", slug: "Tai nghe" },
+  ];
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -48,21 +57,73 @@ const Home = () => {
   return (
     <div className="pb-12">
       {/* BANNER TRANG CHỦ */}
-      <div className="bg-gradient-to-r from-blue-700 to-blue-500 text-white mb-12">
-        <div className="max-w-7xl mx-auto px-4 py-16 md:py-24 flex flex-col items-center text-center">
-          <h1 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-            Nâng tầm trải nghiệm công nghệ
-          </h1>
-          <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-2xl">
-            Khám phá các sản phẩm công nghệ đỉnh cao, từ smartphone, laptop cho
-            đến phụ kiện gaming chuyên nghiệp.
-          </p>
-          <Link
-            to="/shop"
-            className="bg-white text-blue-600 font-bold px-8 py-3.5 rounded-full hover:bg-gray-100 transition-colors shadow-lg flex items-center"
-          >
-            Mua sắm ngay <ArrowRight size={20} className="ml-2" />
-          </Link>
+      <div className="relative bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 rounded-[2rem] overflow-hidden shadow-2xl shadow-blue-200/50 my-6">
+        {/* Họa tiết trang trí chìm (Hình tròn sáng) */}
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-white/10 blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full bg-blue-400/20 blur-2xl pointer-events-none"></div>
+
+        <div className="flex flex-col md:flex-row items-center justify-between p-10 md:p-16 relative z-10 min-h-[320px]">
+          {/* Cột chữ bên trái */}
+          <div className="text-white max-w-xl text-center md:text-left mb-8 md:mb-0">
+            <span className="inline-block py-1 px-4 rounded-full bg-white/20 text-xs font-black tracking-widest uppercase mb-5 border border-white/30 backdrop-blur-md shadow-sm">
+              🔥 Siêu sale mùa hè
+            </span>
+            <h1 className="text-4xl md:text-5xl font-black mb-5 leading-[1.2] tracking-tight">
+              Săn Sale Công Nghệ <br />
+              <span className="text-yellow-300">Không Lo Về Giá</span>
+            </h1>
+            <p className="text-blue-100 mb-8 text-sm md:text-base font-medium max-w-md mx-auto md:mx-0 leading-relaxed">
+              Khám phá hàng ngàn sản phẩm chính hãng với mức ưu đãi tốt nhất thị
+              trường. Miễn phí vận chuyển toàn quốc!
+            </p>
+            <button className="bg-white text-blue-700 font-black py-3.5 px-8 rounded-full shadow-xl hover:shadow-2xl hover:bg-gray-50 transition-all flex items-center justify-center mx-auto md:mx-0 group active:scale-95">
+              MUA SẮM NGAY
+              <span className="ml-2 group-hover:translate-x-1.5 transition-transform duration-300">
+                →
+              </span>
+            </button>
+          </div>
+
+          {/* Cột hình ảnh bên phải (ẩn trên mobile để đỡ chật) */}
+          <div className="hidden md:flex flex-1 justify-end items-center pr-8">
+            {/* Tạm thời mình để một khối kính mờ. 
+        Sau này bạn có thể thay khối <div> này bằng thẻ <img> chứa hình 1 chiếc iPhone PNG tách nền 
+      */}
+            <div className="w-56 h-56 bg-gradient-to-tr from-white/20 to-white/5 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 shadow-2xl animate-[bounce_4s_ease-in-out_infinite]">
+              <span className="text-white/80 font-bold text-center text-sm px-4">
+                <img src="/public/baner.png" alt="Banner" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* --- LỐI TẮT DANH MỤC (QUICK CATEGORIES)  */}
+      <div className="my-10">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-black text-gray-800 tracking-tight flex items-center">
+            <span className="w-1 h-6 bg-blue-600 rounded-full mr-2.5 inline-block"></span>
+            Danh mục nổi bật
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+          {quickCategories.map((cat, index) => (
+            <button
+              key={index}
+              onClick={() => navigate(`/shop?category=${cat.slug}`)}
+              className="flex flex-col items-center p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all group duration-300"
+            >
+              {/* Vòng tròn chứa Icon */}
+              <div className="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center text-2xl mb-3 group-hover:bg-blue-50 group-hover:scale-110 transition-all duration-300 shadow-inner">
+                {cat.icon}
+              </div>
+
+              {/* Tên danh mục */}
+              <span className="text-xs font-bold text-gray-600 group-hover:text-blue-600 transition-colors text-center truncate w-full">
+                {cat.name}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
 

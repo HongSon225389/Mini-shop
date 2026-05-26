@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
 
-// Hàm tạo token JWT dựa trên ID của User
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d", // Token có hiệu lực trong 30 ngày
+    expiresIn: "30d",
   });
 };
 

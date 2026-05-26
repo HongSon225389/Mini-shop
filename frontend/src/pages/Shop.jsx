@@ -20,6 +20,7 @@ const Shop = () => {
   const minPrice = searchParams.get("min") || "";
   const maxPrice = searchParams.get("max") || "";
   const sort = searchParams.get("sort") || "latest";
+  const category = searchParams.get("category") || "";
 
   const [products, setProducts] = useState([]);
   const [pages, setPages] = useState(1);
@@ -47,6 +48,7 @@ const Shop = () => {
             minPrice,
             maxPrice,
             sort,
+            category,
           },
         });
         setProducts(data.products);
@@ -59,7 +61,7 @@ const Shop = () => {
       }
     };
     fetchProducts();
-  }, [keyword, currentPage, minPrice, maxPrice, sort]);
+  }, [keyword, currentPage, minPrice, maxPrice, sort, category]);
 
   const updateFilter = (newParams) => {
     const params = new URLSearchParams(searchParams);
