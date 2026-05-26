@@ -13,7 +13,6 @@ const OrderDetail = () => {
     const fetchOrderDetails = async () => {
       try {
         setLoading(true);
-        // Gọi API lấy chi tiết đơn hàng theo ID
         const { data } = await axiosInstance.get(`/orders/${id}`);
         setOrder(data);
         setLoading(false);

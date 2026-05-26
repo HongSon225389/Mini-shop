@@ -1,11 +1,8 @@
-// frontend/src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// Import Component dùng chung
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-// Import các Trang (Pages)
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
