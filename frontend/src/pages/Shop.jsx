@@ -14,7 +14,6 @@ const Shop = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // Lấy các tham số từ URL
   const keyword = searchParams.get("keyword") || "";
   const currentPage = Number(searchParams.get("page")) || 1;
   const minPrice = searchParams.get("min") || "";
@@ -44,7 +43,7 @@ const Shop = () => {
           params: {
             keyword,
             page: currentPage,
-            limit: 9, // Tăng lên 9 để khớp grid 3 cột
+            limit: 9,
             minPrice,
             maxPrice,
             sort,
@@ -65,7 +64,7 @@ const Shop = () => {
 
   const updateFilter = (newParams) => {
     const params = new URLSearchParams(searchParams);
-    params.set("page", "1"); // Luôn reset về trang 1 khi lọc
+    params.set("page", "1");
     Object.keys(newParams).forEach((key) => {
       if (newParams[key] === "") params.delete(key);
       else params.set(key, newParams[key]);
@@ -76,7 +75,6 @@ const Shop = () => {
   return (
     <div className="py-8 max-w-7xl mx-auto px-4 min-h-screen">
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* SIDEBAR BỘ LỌC */}
         <aside className="w-full lg:w-64 shrink-0">
           <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 sticky top-24">
             <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center">
@@ -126,7 +124,6 @@ const Shop = () => {
           </div>
         </aside>
 
-        {/* NỘI DUNG CHÍNH */}
         <main className="flex-1">
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-3xl shadow-sm border border-gray-50">
             <div>
@@ -140,7 +137,6 @@ const Shop = () => {
               </p>
             </div>
 
-            {/* DROPDOWN SẮP XẾP */}
             <div className="flex items-center text-sm text-gray-500 bg-gray-50 px-4 py-2 rounded-2xl border border-gray-100">
               <SlidersHorizontal size={16} className="mr-2 text-blue-600" />
               <span className="mr-2 font-medium">Sắp xếp:</span>

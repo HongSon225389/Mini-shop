@@ -4,7 +4,6 @@ const multer = require("multer");
 const path = require("path");
 const { protect, admin } = require("../middlewares/auth");
 
-// 1. Cấu hình nơi lưu trữ và cách đặt tên file
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, "uploads/"); // Ảnh sẽ được lưu vào thư mục backend/uploads/
@@ -17,7 +16,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// 2. Bộ lọc định dạng file (Chỉ cho phép up ảnh)
 function checkFileType(file, cb) {
   const filetypes = /jpg|jpeg|png|webp/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -37,7 +35,6 @@ const upload = multer({
   },
 });
 
-// 3. API xử lý Upload (Chỉ Admin mới có quyền upload ảnh sản phẩm)
 router.post("/", protect, admin, (req, res) => {
   upload.single("image")(req, res, function (err) {
     if (err instanceof multer.MulterError) {

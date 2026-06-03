@@ -19,7 +19,6 @@ const Navbar = () => {
   const [keyword, setKeyword] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
 
-  // STATE LƯU SỐ LƯỢNG ĐƠN HÀNG CHỜ DUYỆT CỦA ADMIN
   const [pendingOrders, setPendingOrders] = useState(0);
 
   const navigate = useNavigate();
@@ -30,13 +29,10 @@ const Navbar = () => {
 
   const totalItems = cartItems?.reduce((acc, item) => acc + item.qty, 0) || 0;
 
-  // LOGIC LẤY THÔNG BÁO CHO ADMIN (POLLING)
   useEffect(() => {
-    // Chỉ chạy logic này nếu người dùng đăng nhập là Admin
     if (userInfo?.role === "admin") {
       const fetchPendingOrders = async () => {
         try {
-          // Chỉ cần lấy số lượng đơn đang Pending để cho nhẹ server
           const { data } = await axiosInstance.get(
             "/orders?status=Pending&limit=1",
           );
@@ -46,13 +42,10 @@ const Navbar = () => {
         }
       };
 
-      // Gọi lần đầu ngay khi load trang
       fetchPendingOrders();
 
-      // Cứ sau 15 giây (15000ms) sẽ tự động hỏi lại Backend 1 lần
       const intervalId = setInterval(fetchPendingOrders, 15000);
 
-      // Dọn dẹp interval khi component bị hủy
       return () => clearInterval(intervalId);
     }
   }, [userInfo]);
@@ -109,7 +102,6 @@ const Navbar = () => {
         </form>
 
         <div className="flex items-center space-x-6">
-          {/* ICON THÔNG BÁO DÀNH CHO ADMIN */}
           {userInfo?.role === "admin" && (
             <Link
               to="/admin/orders"
@@ -125,7 +117,6 @@ const Navbar = () => {
             </Link>
           )}
 
-          {/* ICON GIỎ HÀNG DÀNH CHO USER */}
           {userInfo?.role !== "admin" && (
             <Link
               to="/cart"
@@ -140,7 +131,6 @@ const Navbar = () => {
             </Link>
           )}
 
-          {/* MENU USER / ADMIN */}
           {userInfo ? (
             <div className="relative">
               <button
@@ -190,7 +180,6 @@ const Navbar = () => {
                       >
                         <ClipboardList size={16} className="mr-2" /> Quản lý Đơn
                         hàng
-                        {/* Hiện số đếm nhỏ trong cả menu thả xuống */}
                         {pendingOrders > 0 && (
                           <span className="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                             {pendingOrders}

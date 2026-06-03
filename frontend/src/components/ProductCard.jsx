@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import { ShoppingCart, Star } from "lucide-react";
 
 const ProductCard = ({ product }) => {
-  // Logic kiểm tra xem sản phẩm có đang được giảm giá hay không
   const hasDiscount = product.originalPrice > product.price;
 
-  // Tính phần trăm giảm giá (Làm tròn số)
   const discountPercent = hasDiscount
     ? Math.round(
         ((product.originalPrice - product.price) / product.originalPrice) * 100,
@@ -19,9 +17,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all duration-300 overflow-hidden relative flex flex-col h-full transform hover:-translate-y-1.5">
-      {/* --- CONTAINER CHỨA BADGE --- */}
       <div className="absolute top-0 inset-x-0 z-10 p-3 flex items-center justify-between pointer-events-none">
-        {/* Bên trái: Badge Mới */}
         <div>
           {isNew && (
             <span className="inline-block bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md backdrop-blur-sm bg-blue-500/90 pointer-events-auto">
@@ -30,7 +26,6 @@ const ProductCard = ({ product }) => {
           )}
         </div>
 
-        {/* Bên phải: Badge Giảm giá */}
         <div>
           {hasDiscount && (
             <span className="inline-block bg-gradient-to-r from-red-500 to-pink-500 text-white text-[11px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md backdrop-blur-sm bg-red-500/90 pointer-events-auto">
@@ -40,7 +35,6 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
 
-      {/* Ảnh sản phẩm */}
       <Link
         to={`/product/${product._id}`}
         className="block relative overflow-hidden aspect-square bg-gray-50 flex items-center justify-center p-4"
@@ -57,7 +51,6 @@ const ProductCard = ({ product }) => {
         />
       </Link>
 
-      {/* Thông tin sản phẩm */}
       <div className="p-5 flex flex-col flex-1 bg-white relative z-10">
         <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
           {product.brand || "T1-SHOP"}
@@ -69,7 +62,6 @@ const ProductCard = ({ product }) => {
           </h3>
         </Link>
 
-        {/* Đánh giá */}
         <div className="flex items-center mb-4 mt-auto">
           <Star size={14} className="text-yellow-400 fill-yellow-400" />
           <span className="text-xs font-bold text-gray-700 ml-1.5">
@@ -80,7 +72,6 @@ const ProductCard = ({ product }) => {
           </span>
         </div>
 
-        {/* Khu vực Giá và Nút mua */}
         <div className="flex items-end justify-between pt-3 border-t border-gray-50 mt-auto">
           <div className="flex flex-col">
             <div

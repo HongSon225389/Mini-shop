@@ -24,10 +24,8 @@ const ProductDetail = () => {
   const [error, setError] = useState("");
   const [qty, setQty] = useState(1);
 
-  // Trigger để fetch lại dữ liệu sau khi đánh giá
   const [refresh, setRefresh] = useState(false);
 
-  // State cho Form Đánh giá
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
   const [reviewLoading, setReviewLoading] = useState(false);
@@ -49,7 +47,7 @@ const ProductDetail = () => {
       }
     };
     fetchProductDetails();
-  }, [id, refresh]); // Thêm refresh vào dependency
+  }, [id, refresh]);
 
   const addToCartHandler = () => {
     if (userInfo?.role !== "admin") {
@@ -72,7 +70,7 @@ const ProductDetail = () => {
       alert("Cảm ơn bạn đã đánh giá!");
       setRating(5);
       setComment("");
-      setRefresh(!refresh); // Bật cờ để load lại trang, hiện review mới
+      setRefresh(!refresh);
       setReviewLoading(false);
     } catch (err) {
       setReviewError(err.response?.data?.message || "Lỗi khi gửi đánh giá");
@@ -115,7 +113,6 @@ const ProductDetail = () => {
 
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 p-8 lg:p-12">
-          {/* Cột Trái: Ảnh */}
           <div className="flex justify-center items-center bg-gray-50 rounded-2xl p-6">
             <img
               src={imageUrl}
@@ -124,7 +121,6 @@ const ProductDetail = () => {
             />
           </div>
 
-          {/* Cột Phải: Thông tin */}
           <div className="flex flex-col justify-between">
             <div>
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
@@ -213,9 +209,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* KHU VỰC BÌNH LUẬN VÀ ĐÁNH GIÁ */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {/* Cột trái: Form viết đánh giá */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 sticky top-24">
             <h3 className="text-xl font-bold text-gray-800 mb-6 border-b pb-4">
@@ -291,7 +285,6 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Cột phải: Danh sách review */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-8 flex items-center">

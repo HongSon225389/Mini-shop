@@ -70,14 +70,10 @@ const Register = () => {
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center py-10 px-4 my-4 bg-gray-900 relative overflow-hidden">
-      {/* Nền đằng sau khung chính */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 via-gray-900 to-black"></div>
 
-      {/* Khung chứa chính */}
       <div className="w-full max-w-[1200px] bg-white rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col md:flex-row border border-gray-800 min-h-[700px] relative z-10">
-        {/* --- CỘT TRÁI: NỀN MẠCH ĐIỆN SỐNG ĐỘNG (Đồng bộ với Login) --- */}
         <div className="hidden md:flex md:w-[55%] lg:w-[60%] relative overflow-hidden bg-[#0a0a16] flex-col p-12 justify-between">
-          {/* Ảnh vân mạch điện nền */}
           <div
             className="absolute inset-0 opacity-40 mix-blend-screen"
             style={{
@@ -88,12 +84,10 @@ const Register = () => {
             }}
           ></div>
 
-          {/* Các vệt sáng Neon */}
           <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-pink-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse"></div>
           <div className="absolute bottom-[-10%] right-[-20%] w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-[100px] pointer-events-none mix-blend-screen"></div>
           <div className="absolute top-[30%] left-[20%] w-[300px] h-[300px] bg-blue-500/30 rounded-full blur-[90px] pointer-events-none mix-blend-screen"></div>
 
-          {/* Nội dung Cột Trái */}
           <div className="relative z-10">
             <h3 className="text-xl font-bold text-white tracking-widest drop-shadow-lg mb-1">
               LHS
@@ -112,7 +106,6 @@ const Register = () => {
             </p>
           </div>
 
-          {/* THẺ KÍNH (GLASSMORPHISM) */}
           <div className="relative z-10 mt-auto hidden lg:block">
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 shadow-2xl max-w-lg relative overflow-hidden group">
               <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] skew-x-12"></div>
@@ -155,10 +148,8 @@ const Register = () => {
           </div>
         </div>
 
-        {/* --- CỘT PHẢI: FORM ĐĂNG KÝ --- */}
         <div className="w-full md:w-[45%] lg:w-[40%] bg-white p-8 lg:p-12 flex flex-col justify-center items-center">
           <div className="w-full max-w-sm">
-            {/* Header Form */}
             <div className="flex flex-col items-center text-center mb-6">
               <div className="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-600/30">
                 <UserPlus size={24} strokeWidth={2.5} />
@@ -171,7 +162,6 @@ const Register = () => {
               </p>
             </div>
 
-            {/* Thông báo lỗi */}
             {error && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-xs rounded-lg text-center font-medium">
                 {error}
@@ -179,7 +169,6 @@ const Register = () => {
             )}
 
             <form onSubmit={submitHandler} className="space-y-3.5">
-              {/* Họ và tên (Full width) */}
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
                   <User size={18} />
@@ -194,7 +183,6 @@ const Register = () => {
                 />
               </div>
 
-              {/* Dòng chia 2 cột: Email & Số điện thoại */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
@@ -224,7 +212,6 @@ const Register = () => {
                 </div>
               </div>
 
-              {/* Địa chỉ (Full width) */}
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
                   <MapPin size={18} />
@@ -239,7 +226,6 @@ const Register = () => {
                 />
               </div>
 
-              {/* Dòng chia 2 cột: Mật khẩu & Xác nhận */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
@@ -277,7 +263,6 @@ const Register = () => {
                 </div>
               </div>
 
-              {/* Nút Submit */}
               <button
                 type="submit"
                 disabled={loading}
@@ -291,7 +276,6 @@ const Register = () => {
               </button>
             </form>
 
-            {/* Footer Form */}
             <div className="mt-6 text-center text-sm text-gray-700">
               Đã có tài khoản?{" "}
               <Link
@@ -303,7 +287,6 @@ const Register = () => {
             </div>
           </div>
         </div>
-        {/* --- HẾT CỘT PHẢI --- */}
       </div>
     </div>
   );

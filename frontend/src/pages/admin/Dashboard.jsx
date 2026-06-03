@@ -26,7 +26,6 @@ const Dashboard = () => {
     productsByCategory: [],
   });
 
-  // STATE MỚI CHO BIỂU ĐỒ
   const [revenueChart, setRevenueChart] = useState([]);
   const [maxRevenue, setMaxRevenue] = useState(0);
 
@@ -43,14 +42,13 @@ const Dashboard = () => {
   const fetchAdminStats = async () => {
     try {
       setLoading(true);
-      // Gọi 2 API cùng lúc để tối ưu tốc độ
       const [overviewRes, revenueRes] = await Promise.all([
         axiosInstance.get("/statistics/overview"),
         axiosInstance.get("/statistics/monthly-revenue"),
       ]);
 
       const data = overviewRes.data;
-      const revData = revenueRes.data; // Array [{month, year, revenue}]
+      const revData = revenueRes.data;
 
       setStats({
         totalRevenue: data.totalRevenue || 0,
@@ -61,7 +59,6 @@ const Dashboard = () => {
         productsByCategory: data.products?.byCategory || [],
       });
 
-      // XỬ LÝ DỮ LIỆU BIỂU ĐỒ (Dựng mảng 6 tháng gần nhất)
       const currentMonth = new Date().getMonth() + 1;
       const currentYear = new Date().getFullYear();
       const processedRev = [];
@@ -87,7 +84,6 @@ const Dashboard = () => {
         });
       }
 
-      // Đẩy trần biểu đồ lên 10% để cột cao nhất không bị chạm nóc
       setMaxRevenue(maxRev === 0 ? 100 : maxRev * 1.1);
       setRevenueChart(processedRev);
       setLoading(false);
@@ -165,7 +161,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* BIỂU ĐỒ DOANH THU 6 THÁNG */}
       <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-10">
         <h2 className="text-xl font-bold text-gray-800 mb-8 flex items-center">
           <BarChart3 className="mr-2 text-green-600" size={24} /> Biểu đồ Doanh
@@ -186,12 +181,10 @@ const Dashboard = () => {
                   key={index}
                   className="flex flex-col items-center justify-end h-full flex-1 group"
                 >
-                  {/* Tooltip hiển thị khi hover */}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity mb-2 bg-gray-800 text-white text-xs px-2 py-1.5 rounded-lg whitespace-nowrap pointer-events-none shadow-lg z-10">
                     {item.revenue.toLocaleString("vi-VN")} đ
                   </div>
 
-                  {/* Thanh Bar (Cột biểu đồ) */}
                   <div className="w-full max-w-[50px] bg-gray-50 rounded-t-lg h-[80%] flex items-end relative overflow-hidden group-hover:bg-gray-100 transition-colors">
                     <div
                       className="w-full bg-green-500 rounded-t-lg transition-all duration-1000 ease-out group-hover:bg-green-400"
@@ -209,9 +202,7 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* 2 BOX THỐNG KÊ CHI TIẾT (Đơn hàng & Danh mục) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
-        {/* Box Tình trạng đơn hàng */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
             <Activity className="mr-2 text-indigo-600" size={24} /> Tình trạng
@@ -293,7 +284,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Box Thống kê sản phẩm  */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
           <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center shrink-0">
             <PieChart className="mr-2 text-pink-600" size={24} /> Cơ cấu Danh

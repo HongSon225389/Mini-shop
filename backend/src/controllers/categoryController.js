@@ -1,22 +1,17 @@
 const Category = require("../models/Category");
 const slugify = require("slugify");
 
-// @desc    Lấy danh sách tất cả danh mục
 // @route   GET /api/categories
-// @access  Public (Ai cũng xem được để lọc sản phẩm)
 exports.getCategories = async (req, res) => {
   try {
-    // Nếu truyền limit=0 hoặc không truyền thì mặc định lấy tất cả (rất hữu ích khi load menu)
     const limit = req.query.limit ? parseInt(req.query.limit) : 0;
     const page = parseInt(req.query.page) || 1;
     const skip = (page - 1) * limit;
 
     const count = await Category.countDocuments();
 
-    // Khởi tạo query
-    const categoriesQuery = Category.find({}).sort({ createdAt: -1 }); // Mới tạo xếp trước
+    const categoriesQuery = Category.find({}).sort({ createdAt: -1 });
 
-    // Chỉ áp dụng phân trang nếu limit > 0
     if (limit > 0) {
       categoriesQuery.skip(skip).limit(limit);
     }
@@ -34,9 +29,7 @@ exports.getCategories = async (req, res) => {
   }
 };
 
-// @desc    Tạo danh mục mới
 // @route   POST /api/categories
-// @access  Private/Admin (Chỉ Admin mới được tạo)
 exports.createCategory = async (req, res) => {
   try {
     const { name } = req.body;
@@ -52,7 +45,7 @@ exports.createCategory = async (req, res) => {
 
     const category = await Category.create({
       name,
-      slug: slugify(name, { lower: true, locale: "vi" }), // Tự động tạo slug tiếng Việt
+      slug: slugify(name, { lower: true, locale: "vi" }),
     });
 
     res.status(201).json(category);
@@ -61,9 +54,7 @@ exports.createCategory = async (req, res) => {
   }
 };
 
-// @desc    Cập nhật danh mục
 // @route   PUT /api/categories/:id
-// @access  Private/Admin
 exports.updateCategory = async (req, res) => {
   try {
     const { name } = req.body;
@@ -85,9 +76,7 @@ exports.updateCategory = async (req, res) => {
   }
 };
 
-// @desc    Xóa danh mục
 // @route   DELETE /api/categories/:id
-// @access  Private/Admin
 exports.deleteCategory = async (req, res) => {
   try {
     const category = await Category.findById(req.params.id);

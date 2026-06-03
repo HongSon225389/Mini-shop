@@ -20,7 +20,7 @@ const ProductManagement = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [uploading, setUploading] = useState(false); // State quản lý upload ảnh
+  const [uploading, setUploading] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [editMode, setEditMode] = useState(false);
@@ -56,7 +56,6 @@ const ProductManagement = () => {
     }
   };
 
-  // HÀM XỬ LÝ UPLOAD ẢNH THỰC TẾ
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const uploadData = new FormData();
@@ -304,7 +303,6 @@ const ProductManagement = () => {
 
             <form onSubmit={submitHandler} className="p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Ảnh sản phẩm */}
                 <div className="md:col-span-2 bg-blue-50/50 p-4 rounded-3xl border border-blue-100">
                   <label className="block text-[11px] font-black uppercase text-blue-500 mb-2 ml-1">
                     Hình ảnh
@@ -341,7 +339,6 @@ const ProductManagement = () => {
                   </div>
                 </div>
 
-                {/* Tên sản phẩm */}
                 <div className="md:col-span-2">
                   <label className="block text-[11px] font-black uppercase text-gray-400 mb-1 ml-1">
                     Tên sản phẩm
@@ -355,7 +352,6 @@ const ProductManagement = () => {
                   />
                 </div>
 
-                {/* Giá bán (Giá thực tế thu của khách) */}
                 <div>
                   <label className="block text-[11px] font-black uppercase text-red-500 mb-1 ml-1">
                     Giá khuyến mãi (VNĐ) *
@@ -371,7 +367,6 @@ const ProductManagement = () => {
                   />
                 </div>
 
-                {/* Giá gốc (Dùng để gạch ngang và tính % giảm giá) */}
                 <div>
                   <label className="block text-[11px] font-black uppercase text-gray-400 mb-1 ml-1">
                     Giá gốc (Tùy chọn)
@@ -387,7 +382,6 @@ const ProductManagement = () => {
                   />
                 </div>
 
-                {/* Tồn kho */}
                 <div>
                   <label className="block text-[11px] font-black uppercase text-gray-400 mb-1 ml-1">
                     Tồn kho

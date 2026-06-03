@@ -63,10 +63,8 @@ const OrderManagement = () => {
       order.user?.name?.toLowerCase().includes(term) ||
       false;
 
-    // Lọc theo trạng thái
     const matchStatus = filterStatus === "All" || order.status === filterStatus;
 
-    // Trả về kết quả thỏa mãn CẢ HAI điều kiện
     return matchSearch && matchStatus;
   });
 
@@ -78,7 +76,6 @@ const OrderManagement = () => {
         </h1>
 
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full xl:w-auto">
-          {/* LỌC THEO TRẠNG THÁI */}
           <div className="relative w-full sm:w-auto flex items-center bg-white border border-gray-200 rounded-lg shadow-sm px-3 py-2 text-sm focus-within:border-blue-500">
             <Filter size={16} className="text-gray-400 mr-2" />
             <select
@@ -94,7 +91,6 @@ const OrderManagement = () => {
             </select>
           </div>
 
-          {/* THANH TÌM KIẾM */}
           <div className="relative w-full sm:w-72">
             <input
               type="text"

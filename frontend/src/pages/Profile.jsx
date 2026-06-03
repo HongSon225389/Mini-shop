@@ -28,17 +28,14 @@ const Profile = () => {
   const [stats, setStats] = useState({ totalOrders: 0, totalSpent: 0 });
   const [loading, setLoading] = useState(true);
 
-  // STATE TÌM KIẾM & LỌC ĐƠN HÀNG
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
 
-  // STATE CẬP NHẬT THÔNG TIN
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(userInfo?.name || "");
   const [phone, setPhone] = useState(userInfo?.phone || "");
   const [address, setAddress] = useState(userInfo?.address || "");
 
-  // STATE MẬT KHẨU (Bảo mật 2 lớp)
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [updateLoading, setUpdateLoading] = useState(false);
@@ -70,11 +67,9 @@ const Profile = () => {
     fetchProfileData();
   }, [userInfo]);
 
-  // HÀM XỬ LÝ LƯU THÔNG TIN
   const updateProfileHandler = async (e) => {
     e.preventDefault();
 
-    // Kiểm tra khớp mật khẩu trước khi gửi API
     if (password && password !== confirmPassword) {
       alert("Mật khẩu xác nhận không khớp!");
       return;
@@ -89,7 +84,6 @@ const Profile = () => {
 
       const { data } = await axiosInstance.put("/users/profile", updateData);
 
-      // Đồng bộ dữ liệu mới vào Redux và LocalStorage
       dispatch(setCredentials(data));
 
       setIsEditing(false);
@@ -103,7 +97,6 @@ const Profile = () => {
     }
   };
 
-  // LOGIC LỌC DANH SÁCH ĐƠN HÀNG
   const filteredOrders = orders.filter((order) => {
     const term = searchTerm.toLowerCase();
     const matchSearch =
@@ -116,10 +109,8 @@ const Profile = () => {
   return (
     <div className="py-8 max-w-6xl mx-auto px-4 min-h-[75vh]">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* ================= BÊN TRÁI: THÔNG TIN TÀI KHOẢN ================= */}
         <div className="space-y-6">
           <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 relative overflow-hidden transition-all duration-300">
-            {/* Nút bật/tắt Edit */}
             {!isEditing ? (
               <button
                 onClick={() => setIsEditing(true)}
@@ -162,7 +153,6 @@ const Profile = () => {
             </div>
 
             {isEditing ? (
-              /* FORM CHỈNH SỬA */
               <form
                 onSubmit={updateProfileHandler}
                 className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300"
@@ -262,7 +252,6 @@ const Profile = () => {
                 </button>
               </form>
             ) : (
-              /* HIỂN THỊ THÔNG TIN CHẾ ĐỘ READ-ONLY */
               <div className="space-y-5 border-t border-gray-50 pt-6">
                 <div className="flex items-center text-gray-600 bg-gray-50 p-3 rounded-2xl">
                   <Mail size={18} className="mr-3 text-blue-500 shrink-0" />
@@ -289,7 +278,6 @@ const Profile = () => {
             )}
           </div>
 
-          {/* BOX CHI TIÊU - CHỈ CHO USER */}
           {userInfo?.role !== "admin" && (
             <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-3xl shadow-lg shadow-blue-100 text-white">
               <h3 className="text-lg font-bold mb-4 flex items-center opacity-90">
@@ -311,10 +299,8 @@ const Profile = () => {
           )}
         </div>
 
-        {/* ================= BÊN PHẢI: GIAO DIỆN CHỨC NĂNG ================= */}
         <div className="md:col-span-2">
           {userInfo?.role === "admin" ? (
-            /* VIEW CHO ADMIN */
             <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 h-full flex flex-col justify-center items-center text-center">
               <div className="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-6">
                 <ShieldCheck size={48} />
@@ -338,7 +324,6 @@ const Profile = () => {
               </Link>
             </div>
           ) : (
-            /* VIEW CHO KHÁCH HÀNG (LỊCH SỬ ĐƠN) */
             <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <h2 className="text-2xl font-bold text-gray-800 flex items-center">

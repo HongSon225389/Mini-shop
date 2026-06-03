@@ -2,9 +2,7 @@ const Order = require("../models/Order");
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
 
-// @desc    Tạo đơn hàng mới
 // @route   POST /api/orders
-// @access  Private
 exports.createOrder = async (req, res) => {
   try {
     const { orderItems, shippingAddress } = req.body;
@@ -15,26 +13,22 @@ exports.createOrder = async (req, res) => {
         .json({ message: "Không có sản phẩm nào để đặt hàng" });
     }
 
-    // Tính tổng tiền ở Backend để tránh việc user sửa code Frontend gửi sai giá
     const totalPrice = orderItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0,
     );
 
-    // Tạo đơn hàng mới (SĐT lấy cứng từ req.user)
     const order = new Order({
       user: req.user._id,
       orderItems,
-      shippingAddress: shippingAddress || req.user.address, // Nếu không nhập, lấy mặc định
-      phone: req.user.phone, // Luôn lấy từ profile, không tin tưởng client
+      shippingAddress: shippingAddress || req.user.address,
+      phone: req.user.phone,
       totalPrice,
-      status: "Pending", // Mặc định là Chờ duyệt
+      status: "Pending",
     });
 
     const createdOrder = await order.save();
 
-    // (Tùy chọn) Xóa các sản phẩm đã đặt khỏi Giỏ hàng của user
-    // Lấy danh sách ID các sản phẩm vừa đặt
     const orderedProductIds = orderItems.map((item) => item.product.toString());
 
     let cart = await Cart.findOne({ user: req.user._id });
@@ -51,9 +45,7 @@ exports.createOrder = async (req, res) => {
   }
 };
 
-// @desc    Lấy danh sách đơn hàng của chính User đang đăng nhập
 // @route   GET /api/orders/myorders
-// @access  Private
 exports.getMyOrders = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
@@ -62,7 +54,7 @@ exports.getMyOrders = async (req, res) => {
     const count = await Order.countDocuments({ user: req.user._id });
 
     const orders = await Order.find({ user: req.user._id })
-      .sort({ createdAt: -1 }) // Mặc định luôn là đơn mới nhất ở trên cùng
+      .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
 
@@ -77,15 +69,12 @@ exports.getMyOrders = async (req, res) => {
   }
 };
 
-// @desc    Admin lấy danh sách TẤT CẢ đơn hàng trên hệ thống
 // @route   GET /api/orders
-// @access  Private/Admin
 exports.getAllOrders = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
     const page = parseInt(req.query.page) || 1;
 
-    // Admin có thể muốn lọc: Lấy tất cả các đơn đang "Chờ duyệt" (?status=Pending)
     const filter = req.query.status ? { status: req.query.status } : {};
 
     const count = await Order.countDocuments(filter);
@@ -107,9 +96,7 @@ exports.getAllOrders = async (req, res) => {
   }
 };
 
-// @desc    Lấy chi tiết 1 đơn hàng theo ID
 // @route   GET /api/orders/:id
-// @access  Private (User xem đơn của mình HOẶC Admin xem đơn của ai cũng được)
 exports.getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate(
@@ -121,7 +108,6 @@ exports.getOrderById = async (req, res) => {
       return res.status(404).json({ message: "Không tìm thấy đơn hàng" });
     }
 
-    // Kiểm tra quyền: Nếu là admin hoặc chính chủ đơn hàng thì mới được xem
     if (
       req.user.role === "admin" ||
       order.user._id.toString() === req.user._id.toString()
@@ -135,9 +121,7 @@ exports.getOrderById = async (req, res) => {
   }
 };
 
-// @desc    Admin cập nhật trạng thái đơn hàng (Duyệt đơn -> Trừ kho)
 // @route   PUT /api/orders/:id/status
-// @access  Private/Admin
 exports.updateOrderStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -155,20 +139,17 @@ exports.updateOrderStatus = async (req, res) => {
         .status(400)
         .json({ message: "Đơn hàng đã được duyệt, bạn không thể tự hủy." });
     }
-    // LOGIC TRỪ TỒN KHO: Khi Admin đổi từ Pending sang Processing (Duyệt đơn)
     if (order.status === "Pending" && status === "Processing") {
       for (const item of order.orderItems) {
         const product = await Product.findById(item.product);
         if (product) {
           product.countInStock -= item.quantity;
-          // Ngăn số lượng bị âm nếu lỡ có lỗi
           if (product.countInStock < 0) product.countInStock = 0;
           await product.save();
         }
       }
     }
 
-    // Cập nhật trạng thái mới
     order.status = status;
     const updatedOrder = await order.save();
 
@@ -178,16 +159,13 @@ exports.updateOrderStatus = async (req, res) => {
   }
 };
 
-// @desc    User xem thống kê lịch sử mua hàng cá nhân
 // @route   GET /api/orders/my-stats
-// @access  Private
 exports.getUserOrderStats = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    // 1. Thống kê số lượng đơn hàng theo trạng thái của riêng User này
     const statsArray = await Order.aggregate([
-      { $match: { user: userId } }, // Chỉ lọc đơn của chính chủ
+      { $match: { user: userId } },
       {
         $group: {
           _id: "$status",
@@ -196,7 +174,6 @@ exports.getUserOrderStats = async (req, res) => {
       },
     ]);
 
-    // Format lại cho đẹp
     const statusStats = {
       Pending: 0,
       Processing: 0,
@@ -212,7 +189,6 @@ exports.getUserOrderStats = async (req, res) => {
       totalOrders += item.count;
     });
 
-    // 2. Tính tổng tiền đã thanh toán (chỉ tính đơn đã giao thành công)
     const totalSpentData = await Order.aggregate([
       { $match: { user: userId, status: "Delivered" } },
       {
@@ -228,7 +204,7 @@ exports.getUserOrderStats = async (req, res) => {
     res.json({
       totalOrders,
       totalSpent,
-      statusStats, // Trả về để FE làm các badge (ví dụ: Chờ duyệt (3))
+      statusStats,
     });
   } catch (error) {
     res.status(500).json({ message: "Lỗi server: " + error.message });

@@ -68,7 +68,6 @@ const OrderDetail = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Cột trái: Thông tin khách hàng & Giao hàng */}
         <div className="w-full lg:w-2/3 space-y-6">
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center border-b pb-3">
@@ -132,7 +131,6 @@ const OrderDetail = () => {
           </div>
         </div>
 
-        {/* Cột phải: Tổng kết tiền */}
         <div className="w-full lg:w-1/3">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-24">
             <h2 className="text-xl font-bold text-gray-800 mb-6 border-b pb-4">
